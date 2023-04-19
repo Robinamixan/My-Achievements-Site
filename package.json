@@ -6,13 +6,14 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "nodemon": "nodemon app.js"
+    "nodemon": "NODEJS_PORT=$(grep NODEMON_PORT .env | cut -d '=' -f2) NODEJS_EXTERNAL_PORT=$(grep NODEMON_EXTERNAL_PORT .env | cut -d '=' -f2) nodemon app.js"
   },
   "dependencies": {
     "express": "^4.16.1",
     "mongoose": "^7.0.4"
   },
   "devDependencies": {
+    "eslint": "^8.38.0",
     "nodemon": "^2.0.22"
   }
 }

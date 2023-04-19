@@ -1,5 +1,9 @@
 #!/bin/bash
 
+RED=\033[0;31m
+GREEN=\033[0;32m
+NOCOLOUR=\033[0m
+
 .PHONY: just-work
 just-work:
 	if [ ! -f ./.env ]; then \
@@ -20,6 +24,15 @@ stop:
 .PHONY: rebuild-and-start
 rebuild-and-start:
 	@docker-compose -f docker-compose.yml up --build --force-recreate -d
+
+.PHONY: nodemon
+nodemon:
+	@docker exec -it my_achievements_app npm run nodemon
+
+.PHONY: eslint
+eslint:
+	@docker exec -it my_achievements_app ./node_modules/.bin/eslint ./src app.js --ext .js
+	@printf "$(GREEN)Project checked$(NOCOLOUR)\n"
 
 .PHONY: bash
 bash:

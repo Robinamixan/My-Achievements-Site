@@ -2,16 +2,16 @@ version: '3'
 
 services:
   nodejs:
-    build:
-      context: .
+    build: .
     container_name: my_achievements_app
+    working_dir: /app
     ports:
       - ${NODEJS_EXTERNAL_PORT}:${NODEJS_PORT}
+      - ${NODEMON_EXTERNAL_PORT}:${NODEMON_PORT}
     env_file:
       - ./.env
     volumes:
       - ./:/app
-      - /app/node_modules
     networks:
       - default
 

@@ -1,0 +1,20 @@
+{
+  "env": {
+    "node": true,
+    "commonjs": true
+  },
+  "extends": "eslint:recommended",
+  "rules": {
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ]
+  },
+  "parserOptions": {
+    "ecmaVersion": 2015
+  }
+}

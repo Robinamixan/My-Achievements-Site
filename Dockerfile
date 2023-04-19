@@ -6,8 +6,9 @@ COPY package*.json ./
 
 RUN npm install
 
-COPY . .
+COPY . /app
 
-EXPOSE 8080
+EXPOSE ${NODEJS_PORT}
+EXPOSE ${NODEJS_DEV_PORT}
 
-CMD [ "npm", "start" ]
+CMD [ "node", "app.js" ]

@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 // Constants
 const EXTERNAL_PORT = process.env.NODEJS_EXTERNAL_PORT;
 const INTERNAL_PORT = process.env.NODEJS_PORT;
+
 const MONGO_PORT = process.env.MONGO_PORT;
 const MONGO_USER = process.env.MONGO_USER;
 const MONGO_PASSWORD = process.env.MONGO_PASSWORD;
@@ -14,20 +15,20 @@ const HOST = '0.0.0.0';
 
 const app = express();
 
-app.get('/', (req, res) => {
-    res.send('Hello World. ' + `Running on http://${req.headers.host}`);
-});
-
 mongoose.set('strictQuery', false);
 mongoose.connect(MONGODB_URI)
-  .then(result => {
-      app.listen(INTERNAL_PORT, HOST, () => {
-          console.log(`Running on http://${HOST}:${EXTERNAL_PORT}`);
-      });
-  })
-  .catch(error => {
-    console.log(error);
+    .then(() => {
+        app.listen(INTERNAL_PORT, HOST, () => {
+            console.log(`Running on http://${HOST}:${EXTERNAL_PORT}`);
+        });
+    })
+    .catch(error => {
+        console.log(error);
 
-    return error;
-  });
+        return error;
+    });
 
+
+app.get('/', (req, res) => {
+    res.send('Hello World! ' + `Running on http://${req.headers.host}`);
+});
