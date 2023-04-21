@@ -8,10 +8,11 @@ NOCOLOUR=\033[0m
 just-work:
 	if [ ! -f ./.env ]; then \
         cp .env.example .env; \
+        @printf "$(GREEN)Created .env file with default settings.$(NOCOLOUR)\n" \
     fi
 	@docker-compose -f docker-compose.yml build
 	@docker-compose -f docker-compose.yml up -d
-	@printf "$(GREEN)The project has been set up and launched$(NOCOLOUR)\n"
+	@printf "$(GREEN)The project has been set up and launched.$(NOCOLOUR)\n"
 
 .PHONY: start
 start:

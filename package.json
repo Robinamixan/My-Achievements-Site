@@ -9,8 +9,13 @@
     "nodemon": "NODEJS_PORT=$(grep NODEMON_PORT .env | cut -d '=' -f2) NODEJS_EXTERNAL_PORT=$(grep NODEMON_EXTERNAL_PORT .env | cut -d '=' -f2) nodemon app.js"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
     "express": "^4.16.1",
-    "mongoose": "^7.0.4"
+    "express-validator": "^7.0.1",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^7.0.4",
+    "multer": "^1.4.5-lts.1"
   },
   "devDependencies": {
     "eslint": "^8.38.0",
