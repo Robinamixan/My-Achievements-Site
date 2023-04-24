@@ -1,7 +1,7 @@
-const express = require("express");
-const {body} = require("express-validator");
+const express = require('express');
+const {body} = require('express-validator');
 
-const validator = require("../../middlewares/validation");
+const validator = require('../../middlewares/validation');
 const jwtManager = require('../../services/jwt-token-manager');
 const passwordManager = require('../../services/password-manager');
 

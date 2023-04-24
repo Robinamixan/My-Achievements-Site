@@ -1,8 +1,8 @@
-const express = require("express");
-const {param} = require("express-validator");
-const validator = require("../../middlewares/validation");
+const express = require('express');
+const {param} = require('express-validator');
+const validator = require('../../middlewares/validation');
 
-const authorizationHandler = require("../../middlewares/authorization");
+const authorizationHandler = require('../../middlewares/authorization');
 
 const User = require('../../models/user');
 const AppError = require('../../errors/app-error');

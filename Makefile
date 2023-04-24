@@ -35,6 +35,11 @@ eslint:
 	@docker exec -it my_achievements_app ./node_modules/.bin/eslint ./src app.js --ext .js
 	@printf "$(GREEN)Project checked$(NOCOLOUR)\n"
 
+.PHONY: eslint-fix
+eslint-fix:
+	@docker exec -it my_achievements_app ./node_modules/.bin/eslint ./src app.js --ext .js --fix
+	@printf "$(GREEN)Project checked$(NOCOLOUR)\n"
+
 .PHONY: bash
 bash:
 	@docker exec -it my_achievements_app bash

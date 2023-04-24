@@ -2,7 +2,7 @@ const express = require('express');
 const {body} = require('express-validator');
 
 const passwordManager = require('../../services/password-manager');
-const validator = require("../../middlewares/validation");
+const validator = require('../../middlewares/validation');
 
 const User = require('../../models/user');
 
