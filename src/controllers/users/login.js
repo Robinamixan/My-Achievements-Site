@@ -1,10 +1,14 @@
+const express = require("express");
+const {body} = require("express-validator");
+
+const validator = require("../../middlewares/validation");
 const jwtManager = require('../../services/jwt-token-manager');
 const passwordManager = require('../../services/password-manager');
 
 const AppError = require('../../errors/app-error');
 const User = require('../../models/user');
 
-module.exports = async (request, response, next) => {
+const loginAction = async (request, response, next) => {
     try {
         const user = await User.findOne({email: request.body.email});
         assetUserExist(user);
@@ -36,3 +40,16 @@ const assertEqualPasswords = async (user, requestPassword) => {
         throw new AppError('Authentication failed.', 403);
     }
 };
+
+const router = express.Router();
+router.post(
+    '/login',
+    [
+        body('email').notEmpty(),
+        body('password').notEmpty(),
+    ],
+    validator.expressValidation,
+    loginAction
+);
+
+module.exports = router;

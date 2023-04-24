@@ -1,8 +1,15 @@
+const express = require("express");
+const {query} = require("express-validator");
+
+const validator = require("../../middlewares/validation");
+const authorizationHandler = require("../../middlewares/authorization");
+const adminAccessHandler = require("../../middlewares/admin-access");
+
 const User = require('../../models/user');
 
 const ITEM_PER_PAGE = 10;
 
-module.exports = async (request, response, next) => {
+const getUsersAction = async (request, response, next) => {
     try {
         const currentPage = request.query.page || 1;
         const itemsPerPage = request.query.limit || ITEM_PER_PAGE;
@@ -35,3 +42,17 @@ module.exports = async (request, response, next) => {
         next(error);
     }
 };
+
+const router = express.Router();
+router.get('/users',
+    authorizationHandler,
+    adminAccessHandler,
+    [
+        query('page').optional().isNumeric(),
+        query('limit').optional().isNumeric(),
+    ],
+    validator.expressValidation,
+    getUsersAction
+);
+
+module.exports = router;

@@ -2,11 +2,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
-const userRouter = require('./src/routes/user');
-const healthCheckRouter = require('./src/routes/health-check');
+const userRouter = require('./src/controllers/users/user-routes');
+const healthCheckRouter = require('./src/controllers/health-check');
 const endpointNotFoundAction = require('./src/controllers/endpoint-not-found');
-const corsHeadersMiddleware = require('./src/middleware/cors-headers');
-const errorsProcessorMiddleware = require('./src/middleware/errors-processor');
+const corsHeadersMiddleware = require('./src/middlewares/cors-headers');
+const errorsProcessorMiddleware = require('./src/middlewares/errors-processor');
 
 // Constants
 const INTERNAL_PORT = process.env.NODEJS_PORT;
