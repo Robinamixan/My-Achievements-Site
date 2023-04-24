@@ -1,16 +1,25 @@
+const { env } = require('node:process');
+
 module.exports.handle = (error, request, response, next) => {
   if (!error) {
     next();
   }
 
   const statusCode = error.statusCode || 500;
+  const responseData = {message: error.message};
 
-  console.log('Debug [' + new Date().toISOString() + ']: ' + error.message + ' Status code: [' + statusCode + ']');
+  if (error.relatedErrors) {
+    responseData.errors = error.relatedErrors;
+  }
 
-  const responseData = {message: error.message}
+  if (env.APP_ENV !== 'dev' && statusCode === 500) {
+    responseData.message = 'Server error!';
+    responseData.errors = null;
+  }
 
-  if (error.previusErrors) {
-    responseData.errors = error.previusErrors;
+  if (env.ENABLE_DEBUG === 'true') {
+    console.log('Debug [' + new Date().toISOString() + ']: Request url: ' + request.originalUrl );
+    console.log('Debug [' + new Date().toISOString() + ']: ' + error.message + ' [Status code: ' + statusCode + ']');
   }
 
   return response.status(statusCode).json(responseData);

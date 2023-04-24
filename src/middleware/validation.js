@@ -1,13 +1,11 @@
 const {validationResult} = require('express-validator');
 
+const AppError = require('../errors/app-error');
+
 module.exports.expressValidation = (request, response, next) => {
   const errors = validationResult(request);
   if (!errors.isEmpty()) {
-    const error = new Error('Validation failed. Please enter valid data.');
-    error.statusCode = 422;
-    error.previusErrors = errors.array();
-
-    throw error;
+    throw new AppError('Validation failed. Please enter valid data.', 422, errors.array());
   }
 
   next();
@@ -15,10 +13,7 @@ module.exports.expressValidation = (request, response, next) => {
 
 module.exports.fileUploadValidation = (request, response, next) => {
   if (!request.file) {
-    const error = new Error('No file provided.');
-    error.statusCode = 422;
-
-    throw error;
+    throw new AppError('No file provided.', 422);
   }
 
   next();

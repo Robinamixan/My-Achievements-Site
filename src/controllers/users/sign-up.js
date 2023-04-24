@@ -1,10 +1,10 @@
-const bcrypt = require('bcryptjs');
+const passwordManager = require('../../services/password-manager');
 
 const User = require('../../models/user');
 
 module.exports = async (request, response, next) => {
     try {
-        const hashedPassword = await bcrypt.hash(request.body.password, 12);
+        const hashedPassword = await passwordManager.hash(request.body.password);
 
         const user = new User({
             email: request.body.email,
@@ -18,6 +18,6 @@ module.exports = async (request, response, next) => {
             userId: user._id.toString(),
         });
     } catch (error) {
-        next(error)
+        next(error);
     }
 };

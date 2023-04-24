@@ -6,6 +6,7 @@ const signUpAction = require('../controllers/users/sign-up');
 const signOutAction = require('../controllers/users/sign-out');
 const restPasswordAction = require('../controllers/users/reset-password');
 const validator = require('../middleware/validation');
+const authorizationHandler = require('../middleware/authorization');
 const User = require('../models/user');
 
 const router = express.Router();
@@ -43,6 +44,10 @@ router.post(
 
 router.post('/sign-out', signOutAction);
 
-router.post('/reset-password', restPasswordAction);
+router.post(
+    '/reset-password',
+    authorizationHandler,
+    restPasswordAction
+);
 
 module.exports = router;
