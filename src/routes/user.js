@@ -1,5 +1,5 @@
 const express = require('express');
-const {body} = require('express-validator');
+const {body, query, param} = require('express-validator');
 
 const loginAction = require('../controllers/users/login');
 const signUpAction = require('../controllers/users/sign-up');
@@ -49,12 +49,21 @@ router.post(
 router.get('/users',
     authorizationHandler,
     adminAccessHandler,
+    [
+        query('page').optional().isNumeric(),
+        query('limit').optional().isNumeric(),
+    ],
+    validator.expressValidation,
     getUsersAction
 );
 
 router.get(
     '/users/:userId',
     authorizationHandler,
+    [
+        param('userId').isLength({min: 24, max: 24}),
+    ],
+    validator.expressValidation,
     getUserDetailsAction
 );
 
@@ -62,6 +71,25 @@ router.patch(
     '/users/:userId',
     authorizationHandler,
     adminAccessHandler,
+    [
+        param('userId').isLength({min: 24, max: 24}),
+        body('email')
+            .isEmail()
+            .withMessage('Email is not valid.')
+            .custom((value, {req}) => {
+                return User.findOne({email: value})
+                    .then(user => {
+                        if (user && req.params.userId !== user._id.toString()) {
+                            return Promise.reject('User with this email address already exists.');
+                        }
+                    });
+            }),
+        body('name').notEmpty(),
+        body('password').optional().isLength({min: 5}),
+        body('roles').isArray().isLength({min: 1}),
+        body('active').isBoolean(),
+    ],
+    validator.expressValidation,
     updateUserAction
 );
 
@@ -69,6 +97,10 @@ router.delete(
     '/users/:userId',
     authorizationHandler,
     adminAccessHandler,
+    [
+        param('userId').isLength({min: 24, max: 24}),
+    ],
+    validator.expressValidation,
     deleteUserAction
 );
 
