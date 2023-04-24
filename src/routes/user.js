@@ -3,10 +3,14 @@ const {body} = require('express-validator');
 
 const loginAction = require('../controllers/users/login');
 const signUpAction = require('../controllers/users/sign-up');
-const signOutAction = require('../controllers/users/sign-out');
-const restPasswordAction = require('../controllers/users/reset-password');
+const getUsersAction = require('../controllers/users/get-users');
+const getUserDetailsAction = require('../controllers/users/get-user-details');
+const updateUserAction = require('../controllers/users/update-user');
+const deleteUserAction = require('../controllers/users/delete-user');
+
 const validator = require('../middleware/validation');
 const authorizationHandler = require('../middleware/authorization');
+const adminAccessHandler = require('../middleware/admin-access');
 const User = require('../models/user');
 
 const router = express.Router();
@@ -42,12 +46,30 @@ router.post(
     loginAction
 );
 
-router.post('/sign-out', signOutAction);
-
-router.post(
-    '/reset-password',
+router.get('/users',
     authorizationHandler,
-    restPasswordAction
+    adminAccessHandler,
+    getUsersAction
+);
+
+router.get(
+    '/users/:userId',
+    authorizationHandler,
+    getUserDetailsAction
+);
+
+router.patch(
+    '/users/:userId',
+    authorizationHandler,
+    adminAccessHandler,
+    updateUserAction
+);
+
+router.delete(
+    '/users/:userId',
+    authorizationHandler,
+    adminAccessHandler,
+    deleteUserAction
 );
 
 module.exports = router;

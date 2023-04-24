@@ -20,8 +20,8 @@ app.use(corsHeadersMiddleware.handle);
 app.use('/api/v1', userRouter);
 app.use('/api/v1', healthCheckRouter);
 
-app.use(errorsProcessorMiddleware.handle);
 app.use(endpointNotFoundAction);
+app.use(errorsProcessorMiddleware.handle);
 
 mongoose.set('strictQuery', false);
 mongoose.connect(MONGODB_URI)
