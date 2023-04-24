@@ -1,4 +1,4 @@
-module.exports.errorHandler = (error, request, response, next) => {
+module.exports.handle = (error, request, response, next) => {
   if (!error) {
     next();
   }
