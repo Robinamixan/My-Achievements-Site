@@ -2,7 +2,8 @@
   "env": {
     "node": true,
     "commonjs": true,
-    "es6": true
+    "es6": true,
+    "mocha": true
   },
   "extends": "eslint:recommended",
   "rules": {
@@ -13,6 +14,12 @@
     "semi": [
       "error",
       "always"
+    ],
+    "no-multiple-empty-lines": [
+      "error",
+      {
+        "max": 1
+      }
     ]
   },
   "parserOptions": {

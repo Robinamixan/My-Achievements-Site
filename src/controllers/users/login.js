@@ -45,8 +45,8 @@ const router = express.Router();
 router.post(
     '/login',
     [
-        body('email').notEmpty(),
-        body('password').notEmpty(),
+        body('email').isEmail().withMessage('Email is not valid.'),
+        body('password').isLength({min: 5}),
     ],
     validator.expressValidation,
     loginAction

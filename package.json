@@ -6,6 +6,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
+    "test": "ENABLE_DEBUG=false mocha \"test/**/*.js\"",
     "nodemon": "NODEJS_PORT=$(grep NODEMON_PORT .env | cut -d '=' -f2) NODEJS_EXTERNAL_PORT=$(grep NODEMON_EXTERNAL_PORT .env | cut -d '=' -f2) nodemon app.js"
   },
   "dependencies": {
@@ -18,7 +19,12 @@
     "multer": "^1.4.5-lts.1"
   },
   "devDependencies": {
+    "chai": "^4.3.7",
     "eslint": "^8.38.0",
-    "nodemon": "^2.0.22"
+    "eslint-plugin-mocha": "^10.1.0",
+    "mocha": "^10.2.0",
+    "nodemon": "^2.0.22",
+    "sinon": "^15.0.4",
+    "supertest": "^6.3.3"
   }
 }
