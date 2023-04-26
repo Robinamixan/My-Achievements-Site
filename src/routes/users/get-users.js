@@ -7,6 +7,19 @@ const validator = require('../../middlewares/validation');
 const getUsersAction = require('../../controllers/users/get-users');
 
 const router = express.Router();
+/**
+ * @openapi
+ * /users:
+ *   get:
+ *     tags:
+ *       - User
+ *     description: Get users endpoint
+ *     responses:
+ *       200:
+ *         description: Returns list of users with pagination info
+ *       422:
+ *         description: Returns error for not valid parameters
+ */
 router.get('/users',
     authorizationHandler,
     adminAccessHandler,

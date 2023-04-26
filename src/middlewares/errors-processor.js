@@ -17,7 +17,7 @@ module.exports.handle = (error, request, response, next) => {
     responseData.errors = null;
   }
 
-  if (env.ENABLE_DEBUG === 'true') {
+  if (statusCode === 500) {
     console.log('Debug [' + new Date().toISOString() + ']: Request url: ' + request.originalUrl );
     console.log('Debug [' + new Date().toISOString() + ']: ' + error.message + ' [Status code: ' + statusCode + ']');
   }

@@ -5,7 +5,19 @@ const validator = require('../../middlewares/validation');
 const loginAction = require('../../controllers/users/login');
 
 const router = express.Router();
-
+/**
+ * @openapi
+ * /login:
+ *   post:
+ *     tags:
+ *       - User
+ *     description: Authentication endpoint
+ *     responses:
+ *       200:
+ *         description: Returns auth token for successful authentication
+ *       403:
+ *         description: Returns error if authentication was failed
+ */
 router.post(
     '/login',
     [

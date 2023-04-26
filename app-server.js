@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const swaggerUi = require('swagger-ui-express');
 
-const swaggerSettings = require('./doc/swagger-settings');
+const swaggerSpecification = require('./doc/swagger-specification');
 const userRouter = require('./src/routes/user-routes');
 const healthCheckRouter = require('./src/routes/health-check');
 const endpointNotFoundAction = require('./src/controllers/endpoint-not-found');
@@ -18,6 +18,7 @@ module.exports.init = () => {
     app.use('/api/v1', userRouter);
     app.use('/api/v1', healthCheckRouter);
 
+    app.use('/api/doc', swaggerUi.serve, swaggerUi.setup(swaggerSpecification));
     app.use(endpointNotFoundAction);
     app.use(errorsProcessorMiddleware.handle);
 

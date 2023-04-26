@@ -8,6 +8,25 @@ const validator = require('../../middlewares/validation');
 const updateUserAction = require('../../controllers/users/update-user');
 
 const router = express.Router();
+/**
+ * @openapi
+ * /users/{userId}:
+ *   patch:
+ *     tags:
+ *       - User
+ *     description: Update user data endpoint
+ *     parameters:
+ *         - in: path
+ *           name: userId
+ *           schema:
+ *             type: string
+ *           required: true
+ *     responses:
+ *       200:
+ *         description: Returns new userId for successful signup operation
+ *       422:
+ *         description: Returns error for not valid request data
+ */
 router.patch(
     '/users/:userId',
     authorizationHandler,
