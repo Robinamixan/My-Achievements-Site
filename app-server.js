@@ -1,8 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const swaggerUi = require('swagger-ui-express');
 
-const userRouter = require('./src/controllers/users/user-routes');
-const healthCheckRouter = require('./src/controllers/health-check');
+const swaggerSettings = require('./doc/swagger-settings');
+const userRouter = require('./src/routes/user-routes');
+const healthCheckRouter = require('./src/routes/health-check');
 const endpointNotFoundAction = require('./src/controllers/endpoint-not-found');
 const corsHeadersMiddleware = require('./src/middlewares/cors-headers');
 const errorsProcessorMiddleware = require('./src/middlewares/errors-processor');
