@@ -1,14 +1,15 @@
-const User = require('../../models/user');
+const userRepository = require('../../repositories/user');
+
 const AppError = require('../../errors/app-error');
 
 module.exports = async (request, response, next) => {
     try {
         const userId = request.params.userId;
 
-        const user = await User.findById(userId);
+        const user = await userRepository.findById(userId);
         assertUserExist(user);
 
-        await User.findByIdAndDelete(userId);
+        await userRepository.delete(userId);
 
         response.status(200).json({
             status: 'Success'

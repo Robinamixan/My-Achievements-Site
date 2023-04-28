@@ -1,12 +1,12 @@
 const jwtManager = require('../../services/jwt-token-manager');
 const passwordManager = require('../../services/password-manager');
+const userRepository = require('../../repositories/user');
 
 const AppError = require('../../errors/app-error');
-const User = require('../../models/user');
 
 module.exports = async (request, response, next) => {
     try {
-        const user = await User.findOne({email: request.body.email});
+        const user = await userRepository.findOne({email: request.body.email});
         assetUserExist(user);
         await assertEqualPasswords(user, request.body.password);
 
