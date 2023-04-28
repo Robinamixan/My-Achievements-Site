@@ -1,5 +1,5 @@
 const AppError = require('../errors/app-error');
-const User = require('../models/user');
+const userRepository = require('../repositories/user');
 const {ROLE_ADMIN} = require('../enums/user-roles');
 
 module.exports = async (request, response, next) => {
@@ -9,7 +9,7 @@ module.exports = async (request, response, next) => {
       throwAuthorizationError();
     }
 
-    const user = await User.findById(userId);
+    const user = await userRepository.findById(userId);
     if (!user) {
       throwAuthorizationError();
     }

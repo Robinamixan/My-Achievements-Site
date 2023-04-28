@@ -1,7 +1,7 @@
 const supertest = require('supertest');
 const {expect} = require('chai');
 
-const User = require('../../../src/models/user');
+const userRepository = require('../../../src/repositories/user');
 const appServer = require('../../../app-server');
 const app = appServer.init();
 
@@ -37,6 +37,6 @@ describe('PUT /api/v1/sign-up', () => {
     });
 
     after(async () => {
-        await User.deleteMany({roles: {$ne: 'ADMIN'}});
+        await userRepository.deleteMany({roles: {$ne: 'ADMIN'}});
     });
 });

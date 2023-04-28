@@ -3,7 +3,7 @@ const {param, body} = require('express-validator');
 
 const authorizationHandler = require('../../middlewares/authorization');
 const adminAccessHandler = require('../../middlewares/admin-access');
-const User = require('../../models/user');
+const userRepository = require('../../repositories/user');
 const validator = require('../../middlewares/validation');
 const updateUserAction = require('../../controllers/users/update-user');
 
@@ -36,13 +36,12 @@ router.patch(
         body('email')
             .isEmail()
             .withMessage('Email is not valid.')
-            .custom((value, {req}) => {
-                return User.findOne({email: value})
-                    .then(user => {
-                        if (user && req.params.userId !== user._id.toString()) {
-                            return Promise.reject('User with this email address already exists.');
-                        }
-                    });
+            .custom(async (value, {req}) => {
+                const user = await userRepository.findOne({email: value});
+
+                if (user && req.params.userId !== user._id.toString()) {
+                    return Promise.reject('User with this email address already exists.');
+                }
             }),
         body('name').notEmpty(),
         body('password').optional().isLength({min: 5}),

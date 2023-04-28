@@ -3,7 +3,7 @@ const {expect} = require('chai');
 
 const appServer = require('../../../app-server');
 const authorizeUserHelper = require('../../helpers/authorized-user');
-const User = require('../../../src/models/user');
+const userRepository = require('../../../src/repositories/user');
 
 const app = appServer.init();
 
@@ -37,6 +37,6 @@ describe('DELETE /api/v1/users/:userId', () => {
     });
 
     after(async () => {
-        await User.deleteMany({roles: {$ne: 'ADMIN'}});
+        await userRepository.deleteMany({roles: {$ne: 'ADMIN'}});
     });
 });

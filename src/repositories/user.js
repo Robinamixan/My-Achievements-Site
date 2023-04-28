@@ -53,13 +53,8 @@ module.exports.create = async (entityData) => {
  * @returns {?User}
  */
 module.exports.update = async (user, updateData) => {
-    user.name = updateData.name;
-    user.email = updateData.email;
-    user.roles = updateData.roles;
-    user.active = updateData.active;
-
-    if (updateData.password) {
-        user.password = updateData.password;
+    for (const [field, value] of Object.entries(updateData)) {
+        user[field] = value;
     }
 
     return user.save();
@@ -67,4 +62,8 @@ module.exports.update = async (user, updateData) => {
 
 module.exports.delete = async (id) => {
     await User.findByIdAndDelete(id);
+};
+
+module.exports.deleteMany = async (criteria) => {
+    await User.deleteMany(criteria);
 };

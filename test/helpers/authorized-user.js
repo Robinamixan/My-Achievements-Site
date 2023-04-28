@@ -1,7 +1,7 @@
 const supertest = require('supertest');
 const {expect} = require('chai');
 
-const User = require('../../src/models/user');
+const userRepository = require('../../src/repositories/user');
 
 const USER_EMAIL = 'admin_test@admin.com';
 const USER_PASSWORD = 'admin_test';
@@ -43,12 +43,13 @@ module.exports.createAuthorizedUser = async (app) => {
 };
 
 module.exports.removeAuthorizedUser = async () => {
-    await User.deleteOne({email: USER_EMAIL});
+    await userRepository.deleteMany({email: USER_EMAIL});
 };
 
 const setAdminRole = async (userId) => {
-    const user = await User.findById(userId);
+    const user = await userRepository.findById(userId);
 
-    user.roles = ['USER', 'ADMIN'];
-    await user.save();
+    userRepository.update(user, {
+        roles: ['USER', 'ADMIN'],
+    });
 };
