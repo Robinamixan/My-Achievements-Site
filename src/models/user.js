@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-const {ROLE_USER} = require('../enums/user-roles');
+import {ROLE_USER} from '../enums/user-roles.js';
 
 const Schema = mongoose.Schema;
 
@@ -32,4 +32,4 @@ const userSchema = new Schema(
     }
 );
 
-module.exports = mongoose.model('User', userSchema);
+export default mongoose.model('User', userSchema);

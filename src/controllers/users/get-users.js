@@ -1,10 +1,9 @@
-const userRepository = require('../../repositories/user');
-
-const {DESC} = require('../../enums/sort-order');
+import * as userRepository from '../../repositories/user.js';
+import {DESC} from '../../enums/sort-order.js';
 
 const ITEM_PER_PAGE = 10;
 
-module.exports = async (request, response, next) => {
+export default async function(request, response, next) {
     try {
         const currentPage = request.query.page || 1;
         const itemsPerPage = request.query.limit || ITEM_PER_PAGE;
@@ -30,5 +29,5 @@ module.exports = async (request, response, next) => {
     } catch (error) {
         next(error);
     }
-};
+}
 

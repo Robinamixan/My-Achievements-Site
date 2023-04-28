@@ -1,7 +1,7 @@
-const passwordManager = require('../../services/password-manager');
-const userRepository = require('../../repositories/user');
+import * as passwordManager from '../../services/password-manager.js';
+import * as userRepository from '../../repositories/user.js';
 
-module.exports = async (request, response, next) => {
+export default async function(request, response, next) {
     try {
         const hashedPassword = await passwordManager.hash(request.body.password);
 
@@ -17,4 +17,4 @@ module.exports = async (request, response, next) => {
     } catch (error) {
         next(error);
     }
-};
+}

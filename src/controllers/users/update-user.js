@@ -1,9 +1,9 @@
-const passwordManager = require('../../services/password-manager');
-const userRepository = require('../../repositories/user');
+import * as passwordManager from '../../services/password-manager.js';
+import * as userRepository from '../../repositories/user.js';
 
-const AppError = require('../../errors/app-error');
+import AppError from '../../errors/app-error.js';
 
-module.exports = async (request, response, next) => {
+export default async function(request, response, next) {
     try {
         const userId = request.params.userId;
 
@@ -18,7 +18,8 @@ module.exports = async (request, response, next) => {
         };
 
         if (request.body.password) {
-            updateData.password = await passwordManager.hash(request.body.password);
+            updateData.password = await passwordManager.hash(
+                request.body.password);
         }
 
         await userRepository.update(user, updateData);
@@ -35,10 +36,10 @@ module.exports = async (request, response, next) => {
     } catch (error) {
         next(error);
     }
-};
+}
 
-const assertUserExist = (user) => {
+function assertUserExist(user) {
     if (!user) {
         throw new AppError('User not found.', 404);
     }
-};
+}

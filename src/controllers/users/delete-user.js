@@ -1,15 +1,15 @@
-const userRepository = require('../../repositories/user');
+import * as userRepository from '../../repositories/user.js';
 
-const AppError = require('../../errors/app-error');
+import AppError from '../../errors/app-error.js';
 
-module.exports = async (request, response, next) => {
+export default async function(request, response, next) {
     try {
         const userId = request.params.userId;
 
         const user = await userRepository.findById(userId);
         assertUserExist(user);
 
-        await userRepository.delete(userId);
+        await userRepository.deleteById(userId);
 
         response.status(200).json({
             status: 'Success'
@@ -17,10 +17,10 @@ module.exports = async (request, response, next) => {
     } catch (error) {
         next(error);
     }
-};
+}
 
-const assertUserExist = (user) => {
+function assertUserExist(user) {
     if (!user) {
         throw new AppError('User not found.', 404);
     }
-};
+}

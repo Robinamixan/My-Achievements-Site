@@ -1,10 +1,10 @@
-const jwtManager = require('../../services/jwt-token-manager');
-const passwordManager = require('../../services/password-manager');
-const userRepository = require('../../repositories/user');
+import * as jwtManager from '../../services/jwt-token-manager.js';
+import * as passwordManager from '../../services/password-manager.js';
+import * as userRepository from '../../repositories/user.js';
 
-const AppError = require('../../errors/app-error');
+import AppError from '../../errors/app-error.js';
 
-module.exports = async (request, response, next) => {
+export default async function(request, response, next) {
     try {
         const user = await userRepository.findOne({email: request.body.email});
         assetUserExist(user);
@@ -22,17 +22,17 @@ module.exports = async (request, response, next) => {
     } catch (error) {
         next(error);
     }
-};
+}
 
-const assetUserExist = (user) => {
+function assetUserExist(user) {
     if (!user) {
         throw new AppError('User was not found.', 403);
     }
-};
+}
 
-const assertEqualPasswords = async (user, requestPassword) => {
+async function assertEqualPasswords(user, requestPassword) {
     const isEqualPassword = await passwordManager.compare(requestPassword, user.password);
     if (!isEqualPassword) {
         throw new AppError('Authentication failed.', 403);
     }
-};
+}

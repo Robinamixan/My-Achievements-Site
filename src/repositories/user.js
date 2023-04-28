@@ -1,17 +1,17 @@
-const User = require('../models/user');
-const {DESC} = require('../enums/sort-order');
+import User from '../models/user.js';
+import {DESC} from '../enums/sort-order.js';
 
 /**
  * @returns {?number}
  */
-module.exports.getTotalCount = async () => {
+export async function getTotalCount() {
     return User.countDocuments();
-};
+}
 
 /**
  * @returns {?User[]}
  */
-module.exports.find = async (page, itemsPerPage, order) => {
+export async function find(page, itemsPerPage, order) {
     let sort = Object.assign({}, ...Object.keys(order).map(field => ({
         [field]: order[field] === DESC ? -1 : 1
     })));
@@ -20,26 +20,26 @@ module.exports.find = async (page, itemsPerPage, order) => {
         .skip((page - 1) * itemsPerPage)
         .limit(itemsPerPage)
         .sort(sort);
-};
+}
 
 /**
  * @returns {?User}
  */
-module.exports.findOne = async (criteria) => {
+export async function findOne(criteria) {
     return User.findOne(criteria);
-};
+}
 
 /**
  * @returns {?User}
  */
-module.exports.findById = async (id) => {
+export async function findById(id) {
     return User.findById(id);
-};
+}
 
 /**
  * @returns {?User}
  */
-module.exports.create = async (entityData) => {
+export async function create(entityData) {
     const user = new User({
         email: entityData.email,
         password: entityData.password,
@@ -47,23 +47,23 @@ module.exports.create = async (entityData) => {
     });
 
     return user.save();
-};
+}
 
 /**
  * @returns {?User}
  */
-module.exports.update = async (user, updateData) => {
+export async function update(user, updateData) {
     for (const [field, value] of Object.entries(updateData)) {
         user[field] = value;
     }
 
     return user.save();
-};
+}
 
-module.exports.delete = async (id) => {
+export async function deleteById(id) {
     await User.findByIdAndDelete(id);
-};
+}
 
-module.exports.deleteMany = async (criteria) => {
+export async function deleteMany(criteria) {
     await User.deleteMany(criteria);
-};
+}

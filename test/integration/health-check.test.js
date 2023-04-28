@@ -1,7 +1,7 @@
-const supertest = require('supertest');
-const {expect} = require('chai');
+import supertest from 'supertest';
+import {expect} from 'chai';
 
-const appServer = require('../../app-server');
+import * as appServer from '../../app-server.js';
 
 const app = appServer.init();
 

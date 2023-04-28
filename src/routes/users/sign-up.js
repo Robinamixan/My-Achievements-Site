@@ -1,9 +1,9 @@
-const express = require('express');
-const {body} = require('express-validator');
+import express from 'express';
+import {body} from 'express-validator';
 
-const userRepository = require('../../repositories/user');
-const validator = require('../../middlewares/validation');
-const signUpAction = require('../../controllers/users/sign-up');
+import * as userRepository from '../../repositories/user.js';
+import * as validator from '../../middlewares/validation.js';
+import signUpAction from '../../controllers/users/sign-up.js';
 
 const router = express.Router();
 /**
@@ -39,4 +39,4 @@ router.put(
     signUpAction
 );
 
-module.exports = router;
+export default router;

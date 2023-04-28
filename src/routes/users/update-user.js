@@ -1,11 +1,11 @@
-const express = require('express');
-const {param, body} = require('express-validator');
+import express from 'express';
+import {param, body} from 'express-validator';
 
-const authorizationHandler = require('../../middlewares/authorization');
-const adminAccessHandler = require('../../middlewares/admin-access');
-const userRepository = require('../../repositories/user');
-const validator = require('../../middlewares/validation');
-const updateUserAction = require('../../controllers/users/update-user');
+import authorizationHandler from '../../middlewares/authorization.js';
+import adminAccessHandler from '../../middlewares/admin-access.js';
+import * as userRepository from '../../repositories/user.js';
+import * as validator from '../../middlewares/validation.js';
+import updateUserAction from '../../controllers/users/update-user.js';
 
 const router = express.Router();
 /**
@@ -52,4 +52,4 @@ router.patch(
     updateUserAction
 );
 
-module.exports = router;
+export default router;

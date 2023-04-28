@@ -1,8 +1,8 @@
-const AppError = require('../errors/app-error');
-const userRepository = require('../repositories/user');
-const {ROLE_ADMIN} = require('../enums/user-roles');
+import AppError from '../errors/app-error.js';
+import * as userRepository from '../repositories/user.js';
+import {ROLE_ADMIN} from '../enums/user-roles.js';
 
-module.exports = async (request, response, next) => {
+export default async function (request, response, next) {
   try {
     const userId = request.userId;
     if (!userId) {
@@ -22,8 +22,8 @@ module.exports = async (request, response, next) => {
   }
 
   next();
-};
+}
 
-const throwAuthorizationError = () => {
+function throwAuthorizationError() {
   throw new AppError('Authorization failed.', 401);
-};
+}

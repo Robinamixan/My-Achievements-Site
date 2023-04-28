@@ -1,28 +1,28 @@
-const supertest = require('supertest');
-const {expect} = require('chai');
+import supertest from 'supertest';
+import {expect} from 'chai';
 
-const userRepository = require('../../src/repositories/user');
+import * as userRepository from '../../src/repositories/user.js';
 
 const USER_EMAIL = 'admin_test@admin.com';
 const USER_PASSWORD = 'admin_test';
 
-module.exports.getAuthorizeHeader = async (app) => {
+export async function getAuthorizeHeader(app) {
     const body = {
         email: USER_EMAIL,
         password: USER_PASSWORD
     };
 
     const response = await supertest(app)
-        .post('/api/v1/login')
-        .send(body);
+    .post('/api/v1/login')
+    .send(body);
 
     expect(response.statusCode).to.be.equal(200);
     expect(response.body).to.has.property('token');
 
     return 'Bearer ' + response.body.token;
-};
+}
 
-module.exports.createAuthorizedUser = async (app) => {
+export async function createAuthorizedUser(app) {
     const body = {
         email: USER_EMAIL,
         password: USER_PASSWORD,
@@ -40,16 +40,16 @@ module.exports.createAuthorizedUser = async (app) => {
     await setAdminRole(userId);
 
     return userId;
-};
+}
 
-module.exports.removeAuthorizedUser = async () => {
+export async function removeAuthorizedUser() {
     await userRepository.deleteMany({email: USER_EMAIL});
-};
+}
 
-const setAdminRole = async (userId) => {
+async function setAdminRole(userId) {
     const user = await userRepository.findById(userId);
 
     userRepository.update(user, {
         roles: ['USER', 'ADMIN'],
     });
-};
+}

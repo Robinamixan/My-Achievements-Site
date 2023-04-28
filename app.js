@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-const appServer = require('./app-server');
+import * as appServer from './app-server.js';
 
 // Constants
 const INTERNAL_PORT = process.env.NODEJS_PORT;

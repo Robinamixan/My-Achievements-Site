@@ -1,9 +1,9 @@
-const supertest = require('supertest');
-const {expect} = require('chai');
+import supertest from 'supertest';
+import {expect} from 'chai';
 
-const appServer = require('../../../app-server');
-const authorizeUserHelper = require('../../helpers/authorized-user');
-const userRepository = require('../../../src/repositories/user');
+import * as appServer from '../../../app-server.js';
+import * as authorizeUserHelper from '../../helpers/authorized-user.js';
+import * as userRepository from '../../../src/repositories/user.js';
 
 const app = appServer.init();
 

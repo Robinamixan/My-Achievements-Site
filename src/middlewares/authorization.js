@@ -1,7 +1,7 @@
-const AppError = require('../errors/app-error');
-const jwtManager = require('../services/jwt-token-manager');
+import AppError from '../errors/app-error.js';
+import * as jwtManager from '../services/jwt-token-manager.js';
 
-module.exports = (request, response, next) => {
+export default function (request, response, next) {
   const authorizationHeader = request.get('Authorization');
   if (!authorizationHeader) {
     throwAuthorizationError();
@@ -17,15 +17,15 @@ module.exports = (request, response, next) => {
     throw new AppError(error.message, 401);
   }
 
-  if (!decodedToken) {
+  if (!decodedToken.userId) {
     throwAuthorizationError();
   }
 
   request.userId = decodedToken.userId;
 
   next();
-};
+}
 
-const throwAuthorizationError = () => {
+function throwAuthorizationError() {
   throw new AppError('Authorization failed.', 401);
-};
+}

@@ -1,2 +1,2 @@
-module.exports.ASC = 'ASC';
-module.exports.DESC = 'DESC';
+export const ASC = 'ASC';
+export const DESC = 'DESC';

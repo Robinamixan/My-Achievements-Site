@@ -1,24 +1,24 @@
-const jwt = require('jsonwebtoken');
-const { env } = require('node:process');
+import jwt from 'jsonwebtoken';
+import { env } from 'node:process';
 
 /**
  * @returns {string}
  */
-module.exports.createToken = (data) => {
+export function createToken(data) {
     return jwt.sign(
         data,
         env.JWT_SECRET_KEY,
         {expiresIn: '1d'}
     );
-};
+}
 
-module.exports.verify = (token) => {
+export function verify(token) {
     jwt.verify(token, env.JWT_SECRET_KEY);
-};
+}
 
 /**
  * @returns {?string}
  */
-module.exports.decode = (token) => {
+export function decode(token) {
     return jwt.decode(token, env.JWT_SECRET_KEY);
-};
+}

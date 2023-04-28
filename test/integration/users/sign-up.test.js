@@ -1,8 +1,9 @@
-const supertest = require('supertest');
-const {expect} = require('chai');
+import supertest from 'supertest';
+import {expect} from 'chai';
 
-const userRepository = require('../../../src/repositories/user');
-const appServer = require('../../../app-server');
+import * as userRepository from '../../../src/repositories/user.js';
+import * as appServer from '../../../app-server.js';
+
 const app = appServer.init();
 
 describe('PUT /api/v1/sign-up', () => {
