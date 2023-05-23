@@ -1,23 +1,22 @@
 orbs:
-  # the name of the orb we are using
   aws-code-deploy: circleci/aws-code-deploy@1.0.1
 
-# the version of the yml
 version: 2.1
-# Workflows are used to partition jobs
-workflows:
-  # this is one workflow with a job defined
-  # you can have more than one of it
-  deploy_application:
 
-    # jobs are used to perform actions i.e. run instructions
+workflows:
+  deploy_application:
+    when:
+      and:
+        - equal: [ develop, << pipeline.git.branch >> ]
+
     jobs:
-      # This is the name of the job being run
-      # You can run more than one job
-      # The job accepts the following parameters
+      - hold:
+          type: approval
       - aws-code-deploy/deploy:
           application-name: $APP_NAME
           bundle-bucket: $BUNDLE_BUCKET
           bundle-key: code/source
           deployment-group: master
           service-role-arn: $ARN
+          requires:
+            - hold
