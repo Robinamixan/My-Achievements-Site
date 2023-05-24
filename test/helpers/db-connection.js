@@ -1,12 +1,12 @@
-const mongoose = require('mongoose');
-const {env} = require('node:process');
+import mongoose from 'mongoose';
+import {env} from 'node:process';
 
-module.exports.setConnection = () => {
+export function setConnection() {
     const MONGODB_URI = `mongodb://${env.MONGO_USER}:${env.MONGO_PASSWORD}@${env.MONGO_HOST}:${env.MONGO_PORT}/${env.MONGO_DB}_test`;
 
     return mongoose.connect(MONGODB_URI, {useNewUrlParser: true});
-};
+}
 
-module.exports.closeConnection = () => {
+export function closeConnection () {
     return mongoose.disconnect();
-};
+}

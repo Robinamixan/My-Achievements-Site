@@ -1,9 +1,9 @@
-const express = require('express');
-const {param} = require('express-validator');
+import express from 'express';
+import {param} from 'express-validator';
 
-const authorizationHandler = require('../../middlewares/authorization');
-const validator = require('../../middlewares/validation');
-const getUserDetailsAction = require('../../controllers/users/get-user-details');
+import authorizationHandler from '../../middlewares/authorization.js';
+import * as validator from '../../middlewares/validation.js';
+import getUserDetailsAction from '../../controllers/users/get-user-details.js';
 
 const router = express.Router();
 /**
@@ -35,4 +35,4 @@ router.get(
     getUserDetailsAction
 );
 
-module.exports = router;
+export default router;

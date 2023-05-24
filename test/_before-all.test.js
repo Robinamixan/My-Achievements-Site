@@ -1,6 +1,6 @@
-const dbConnectionHelper = require('./helpers/db-connection');
-const authorizeUserHelper = require('./helpers/authorized-user');
-const appServer = require('../app-server');
+import * as dbConnectionHelper from './helpers/db-connection.js';
+import * as authorizeUserHelper from './helpers/authorized-user.js';
+import * as appServer from '../app-server.js';
 
 const app = appServer.init();
 

@@ -1,8 +1,8 @@
-const supertest = require('supertest');
-const {expect} = require('chai');
+import supertest from 'supertest';
+import {expect} from 'chai';
 
-const appServer = require('../../../app-server');
-const User = require('../../../src/models/user');
+import * as appServer from '../../../app-server.js';
+import * as userRepository from '../../../src/repositories/user.js';
 
 const app = appServer.init();
 
@@ -51,6 +51,6 @@ describe('POST /api/v1/login', () => {
     });
 
     after(async () => {
-        await User.deleteMany({roles: {$ne: 'ADMIN'}});
+        await userRepository.deleteMany({roles: {$ne: 'ADMIN'}});
     });
 });

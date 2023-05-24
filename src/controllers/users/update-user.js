@@ -1,27 +1,30 @@
-const passwordManager = require('../../services/password-manager');
+import * as passwordManager from '../../services/password-manager.js';
+import * as userRepository from '../../repositories/user.js';
 
-const User = require('../../models/user');
-const AppError = require('../../errors/app-error');
+import AppError from '../../errors/app-error.js';
 
-module.exports = async (request, response, next) => {
+export default async function(request, response, next) {
     try {
         const userId = request.params.userId;
 
-        const user = await User.findById(userId);
+        const user = await userRepository.findById(userId);
         assertUserExist(user);
 
-        user.name = request.body.name;
-        user.email = request.body.email;
-        user.roles = request.body.roles;
-        user.active = request.body.active;
+        const updateData = {
+            name: request.body.name,
+            email: request.body.email,
+            roles: request.body.roles,
+            active: request.body.active,
+        };
 
         if (request.body.password) {
-            user.password = await passwordManager.hash(request.body.password);
+            updateData.password = await passwordManager.hash(
+                request.body.password);
         }
 
-        await user.save();
+        await userRepository.update(user, updateData);
 
-        const responseData = {
+        response.status(200).json({
             id: user._id.toString(),
             name: user.name,
             email: user.email,
@@ -29,16 +32,14 @@ module.exports = async (request, response, next) => {
             active: user.active,
             createdAt: user.createdAt,
             updatedAt: user.updatedAt,
-        };
-
-        response.status(200).json(responseData);
+        });
     } catch (error) {
         next(error);
     }
-};
+}
 
-const assertUserExist = (user) => {
+function assertUserExist(user) {
     if (!user) {
         throw new AppError('User not found.', 404);
     }
-};
+}

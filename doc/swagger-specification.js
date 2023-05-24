@@ -1,21 +1,21 @@
-const swaggerJsdoc = require('swagger-jsdoc');
+import swaggerJsdoc from 'swagger-jsdoc';
 
 const options = {
     definition: {
-        openapi: "3.0.1",
+        openapi: '3.0.1',
         info: {
-            title: "My Achievements API Swagger doc",
-            version: "1.0.0",
+            title: 'My Achievements API Swagger doc',
+            version: '1.0.0',
             description:
-                "Swagger documentation about My Achievements API",
+                'Swagger documentation about My Achievements API',
             license: {
-                name: "MIT",
-                url: "https://spdx.org/licenses/MIT.html",
+                name: 'MIT',
+                url: 'https://spdx.org/licenses/MIT.html',
             },
         },
         servers: [
             {
-                url: "/api/v1",
+                url: '/api/v1',
             },
         ],
         components: {
@@ -32,8 +32,8 @@ const options = {
         }]
     },
     apis: [
-        "./src/routes/**/*.js"
+        './src/routes/**/*.js'
     ],
 };
 
-module.exports = swaggerJsdoc(options);
+export default swaggerJsdoc(options);

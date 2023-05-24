@@ -1,18 +1,15 @@
-const passwordManager = require('../../services/password-manager');
+import * as passwordManager from '../../services/password-manager.js';
+import * as userRepository from '../../repositories/user.js';
 
-const User = require('../../models/user');
-
-module.exports = async (request, response, next) => {
+export default async function(request, response, next) {
     try {
         const hashedPassword = await passwordManager.hash(request.body.password);
 
-        const user = new User({
+        const user = await userRepository.create({
             email: request.body.email,
             password: hashedPassword,
             name: request.body.name,
         });
-
-        await user.save();
 
         response.status(200).json({
             userId: user._id.toString(),
@@ -20,4 +17,4 @@ module.exports = async (request, response, next) => {
     } catch (error) {
         next(error);
     }
-};
+}

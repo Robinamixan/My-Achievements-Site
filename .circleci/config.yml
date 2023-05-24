@@ -1,0 +1,38 @@
+orbs:
+  aws-code-deploy: circleci/aws-code-deploy@1.0.1
+
+version: 2.1
+
+workflows:
+  develop_pipeline:
+    when:
+      and:
+        - equal: [ develop, << pipeline.git.branch >> ]
+
+    jobs:
+      - hold:
+          type: approval
+      - aws-code-deploy/deploy:
+          application-name: $APP_NAME
+          bundle-bucket: $BUNDLE_BUCKET
+          bundle-key: code/source
+          deployment-group: master
+          service-role-arn: $ARN
+          requires:
+            - hold
+  master_pipeline:
+    when:
+      and:
+        - equal: [ master, << pipeline.git.branch >> ]
+
+    jobs:
+      - hold:
+          type: approval
+      - aws-code-deploy/deploy:
+          application-name: $APP_NAME
+          bundle-bucket: $BUNDLE_BUCKET
+          bundle-key: code/source
+          deployment-group: master
+          service-role-arn: $ARN
+          requires:
+            - hold

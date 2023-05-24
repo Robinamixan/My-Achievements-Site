@@ -36,12 +36,12 @@ test:
 
 .PHONY: eslint
 eslint:
-	@docker exec -it my_achievements_app ./node_modules/.bin/eslint ./src ./test app.js --ext .js
+	@docker exec -it my_achievements_app ./node_modules/.bin/eslint ./src ./test ./doc app.js --ext .js
 	@printf "$(GREEN)Project checked$(NOCOLOUR)\n"
 
 .PHONY: eslint-fix
 eslint-fix:
-	@docker exec -it my_achievements_app ./node_modules/.bin/eslint ./src ./test app.js --ext .js --fix
+	@docker exec -it my_achievements_app ./node_modules/.bin/eslint ./src ./test ./doc app.js --ext .js --fix
 	@printf "$(GREEN)Project checked$(NOCOLOUR)\n"
 
 .PHONY: bash

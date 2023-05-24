@@ -1,6 +1,6 @@
-const { env } = require('node:process');
+import { env } from 'node:process';
 
-module.exports.handle = (error, request, response, next) => {
+export default function(error, request, response, next) {
   if (!error) {
     next();
   }
@@ -23,4 +23,4 @@ module.exports.handle = (error, request, response, next) => {
   }
 
   return response.status(statusCode).json(responseData);
-};
+}

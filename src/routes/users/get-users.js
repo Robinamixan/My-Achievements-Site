@@ -1,10 +1,10 @@
-const express = require('express');
-const {query} = require('express-validator');
+import express from 'express';
+import {query} from 'express-validator';
 
-const authorizationHandler = require('../../middlewares/authorization');
-const adminAccessHandler = require('../../middlewares/admin-access');
-const validator = require('../../middlewares/validation');
-const getUsersAction = require('../../controllers/users/get-users');
+import authorizationHandler from '../../middlewares/authorization.js';
+import adminAccessHandler from '../../middlewares/admin-access.js';
+import * as validator from '../../middlewares/validation.js';
+import getUsersAction from '../../controllers/users/get-users.js';
 
 const router = express.Router();
 /**
@@ -31,4 +31,4 @@ router.get('/users',
     getUsersAction
 );
 
-module.exports = router;
+export default router;

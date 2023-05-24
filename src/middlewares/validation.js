@@ -1,20 +1,24 @@
-const {validationResult} = require('express-validator');
+import {validationResult} from 'express-validator';
 
-const AppError = require('../errors/app-error');
+import AppError from '../errors/app-error.js';
 
-module.exports.expressValidation = (request, response, next) => {
-  const errors = validationResult(request);
-  if (!errors.isEmpty()) {
-    throw new AppError('Validation failed. Please enter valid data.', 422, errors.array());
-  }
+export function expressValidation(request, response, next) {
+    const errors = validationResult(request);
+    if (!errors.isEmpty()) {
+        throw new AppError(
+            'Validation failed. Please enter valid data.',
+            422,
+            errors.array(),
+        );
+    }
 
-  next();
-};
+    next();
+}
 
-module.exports.fileUploadValidation = (request, response, next) => {
-  if (!request.file) {
-    throw new AppError('No file provided.', 422);
-  }
+export function fileUploadValidation(request, response, next) {
+    if (!request.file) {
+        throw new AppError('No file provided.', 422);
+    }
 
-  next();
-};
+    next();
+}

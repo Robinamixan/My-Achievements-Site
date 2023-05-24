@@ -1,11 +1,10 @@
-const User = require('../../models/user');
-const AppError = require('../../errors/app-error');
+import * as userRepository from '../../repositories/user.js';
 
-module.exports = async (request, response, next) => {
+import AppError from '../../errors/app-error.js';
+
+export default async function(request, response, next) {
     try {
-        const userId = request.params.userId;
-
-        const user = await User.findById(userId);
+        const user = await userRepository.findById(request.params.userId);
         assertUserExist(user);
 
         const responseData = {
@@ -22,10 +21,10 @@ module.exports = async (request, response, next) => {
     } catch (error) {
         next(error);
     }
-};
+}
 
-const assertUserExist = (user) => {
+function assertUserExist(user) {
     if (!user) {
         throw new AppError('User not found.', 404);
     }
-};
+}

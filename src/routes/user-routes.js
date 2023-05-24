@@ -1,11 +1,11 @@
-const express = require('express');
+import express from 'express';
 
-const loginRoute = require('./users/login');
-const signUpRoute = require('./users/sign-up');
-const getUsersRoute = require('./users/get-users');
-const getUserDetailsRoute = require('./users/get-user-details');
-const updateUserRoute = require('./users/update-user');
-const deleteUserRoute = require('./users/delete-user');
+import loginRoute from './users/login.js';
+import signUpRoute from './users/sign-up.js';
+import getUsersRoute from './users/get-users.js';
+import getUserDetailsRoute from './users/get-user-details.js';
+import updateUserRoute from './users/update-user.js';
+import deleteUserRoute from './users/delete-user.js';
 
 const router = express.Router();
 
@@ -16,4 +16,4 @@ router.use('/', getUserDetailsRoute);
 router.use('/', updateUserRoute);
 router.use('/', deleteUserRoute);
 
-module.exports = router;
+export default router;

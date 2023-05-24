@@ -1,10 +1,10 @@
-const express = require('express');
-const {param} = require('express-validator');
+import express from 'express';
+import {param} from 'express-validator';
 
-const authorizationHandler = require('../../middlewares/authorization');
-const adminAccessHandler = require('../../middlewares/admin-access');
-const validator = require('../../middlewares/validation');
-const deleteUserAction = require('../../controllers/users/delete-user');
+import authorizationHandler from '../../middlewares/authorization.js';
+import adminAccessHandler from '../../middlewares/admin-access.js';
+import * as validator from '../../middlewares/validation.js';
+import deleteUserAction from '../../controllers/users/delete-user.js';
 
 const router = express.Router();
 /**
@@ -37,4 +37,4 @@ router.delete(
     deleteUserAction
 );
 
-module.exports = router;
+export default router;
